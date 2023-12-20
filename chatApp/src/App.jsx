@@ -1,9 +1,9 @@
 import FriendList from "./Components/FriendList";
+import SignInPage from "./Components/SignInPage";
 function App() {
   return (
     <div>
-      <h1>Banana</h1>
-      <FriendList />
+      <SignInPage />
     </div>
   );
 }
