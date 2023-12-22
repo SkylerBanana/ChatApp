@@ -1,9 +1,12 @@
 import FriendList from "./Components/FriendList";
 import SignInPage from "./Components/SignInPage";
+import RegistrationPage from "./Components/RegistrationPage";
+import Background from "./Components/Background";
+
 function App() {
   return (
     <div>
-      <SignInPage />
+      <RegistrationPage />
     </div>
   );
 }
