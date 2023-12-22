@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 function Input_email(props) {
   return (
     <input
