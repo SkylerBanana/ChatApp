@@ -33,19 +33,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-function Submit() {
-  const auth = getAuth();
-  createUserWithEmailAndPassword(auth, email, password)
-    .then(({ user }) => {
-      updateProfile(user, { displayName: username });
-    })
-    .catch(console.log)
-    .finally(() => {
-      setLoading(false);
-      setAuthenticating(false);
-    });
-}
-
 function RegistrationPage() {
   const [email, setEmail] = useState("");
 
@@ -56,9 +43,6 @@ function RegistrationPage() {
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
   };
-  console.log(email);
-  console.log(password);
-  console.log(username);
 
   const handleChangePassword = (event) => {
     setPassword(event.target.value);
@@ -68,11 +52,25 @@ function RegistrationPage() {
     setUsername(event.target.value);
   };
 
+  function Submit() {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => {
+        updateProfile(user, { displayName: username });
+        console.log(user);
+      })
+      .catch(console.log)
+      .finally(() => {
+        setLoading(false);
+        setAuthenticating(false);
+      });
+  }
+
   return (
     <div>
       <Background />
       <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <form className="space-y-6" action="#" onSubmit={Submit}>
+        <form className="space-y-6" action="#">
           <h5 className="text-xl font-medium text-gray-900 dark:text-white text text-center">
             Create an account
           </h5>
@@ -95,19 +93,13 @@ function RegistrationPage() {
             </label>
             <Input_userName Change={handleChangeUserName} />
           </div>
-          <div>
-            <label
-              for="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Password
-            </label>
-            <Input_password Change={handleChangePassword} />
-          </div>
+
+          <Input_password Change={handleChangePassword} />
 
           <button
             type="submit"
             className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={Submit}
           >
             Continue
           </button>
