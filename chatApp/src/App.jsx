@@ -6,7 +6,7 @@ import Chat_interface from "./Components/Chat_interface";
 function App() {
   return (
     <div>
-      <RegistrationPage />
+      <Chat_interface />
     </div>
   );
 }
