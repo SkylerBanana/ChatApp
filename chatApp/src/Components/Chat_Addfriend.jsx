@@ -14,24 +14,33 @@ function Chat_Addfriend() {
     const Database = getDatabase();
     const currentUserUid = auth.currentUser.uid;
 
-    const updateFriendRequest = async (userId, newFriendArray) => {
+    const updateFriendRequest = async (
+      userId,
+      newFriendArray,
+      sent_Received
+    ) => {
       await runTransaction(ref(Database, `/users/${userId}`), (currentData) => {
+        let OBJ = {};
+        OBJ[sent_Received] = newFriendArray;
         console.log(currentData.username);
         if (!currentData["friendRequest"] || currentData == null) {
-          return { ...currentData, friendRequest: [newFriendArray] };
-        } else {
-          const { friendRequest, ...dataWithoutfriendrequest } = currentData;
           return {
-            ...dataWithoutfriendrequest,
-            friendRequest: [...currentData.friendRequest, newFriendArray],
+            ...currentData,
+            friendRequest: [OBJ],
+          };
+        } else {
+          //  const { friendRequest, ...dataWithoutfriendrequest } = currentData;
+          return {
+            ...currentData,
+            friendRequest: [...currentData.friendRequest, OBJ],
           };
         }
       });
     };
 
-    await updateFriendRequest(currentUserUid, friendid);
+    await updateFriendRequest(currentUserUid, friendid, "sender");
 
-    await updateFriendRequest(friendid, currentUserUid);
+    await updateFriendRequest(friendid, currentUserUid, "receiver");
 
     console.log("Friend request added successfully");
   }
