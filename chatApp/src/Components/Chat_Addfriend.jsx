@@ -1,46 +1,33 @@
 import {
   getDatabase,
   ref,
-  set,
-  update,
   get,
   runTransaction,
+  push,
+  set,
 } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import { useState, useEffect } from "react";
 
 function Chat_Addfriend() {
-  async function friendAdd(auth, friendid) {
+  function friendAdd(auth, friendid) {
     const Database = getDatabase();
     const currentUserUid = auth.currentUser.uid;
 
-    const updateFriendRequest = async (
-      userId,
-      newFriendArray,
-      sent_Received
-    ) => {
-      await runTransaction(ref(Database, `/users/${userId}`), (currentData) => {
-        let OBJ = {};
-        OBJ[sent_Received] = newFriendArray;
-        console.log(currentData.username);
-        if (!currentData["friendRequest"] || currentData == null) {
-          return {
-            ...currentData,
-            friendRequest: [OBJ],
-          };
-        } else {
-          //  const { friendRequest, ...dataWithoutfriendrequest } = currentData;
-          return {
-            ...currentData,
-            friendRequest: [...currentData.friendRequest, OBJ],
-          };
-        }
+    const updateFriendRequest = (senderID, receiverID) => {
+      const friendRequestsRef = ref(
+        Database,
+        `/users/${receiverID}/friendrequests`
+      );
+      const newRequestRef = push(friendRequestsRef);
+
+      set(newRequestRef, {
+        sender: senderID,
+        receiver: receiverID,
       });
     };
 
-    await updateFriendRequest(currentUserUid, friendid, "sender");
-
-    await updateFriendRequest(friendid, currentUserUid, "receiver");
+    updateFriendRequest(currentUserUid, friendid);
 
     console.log("Friend request added successfully");
   }
@@ -64,8 +51,6 @@ function Chat_Addfriend() {
             if (value.username === friend) {
               console.log(value.friendRequest);
               friendAdd(auth, key);
-            } else {
-              console.log("That's not a user");
             }
           }
         } else {
