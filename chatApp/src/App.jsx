@@ -8,7 +8,7 @@ import Chat_FriendRequests from "./Components/Chat_FriendRequests";
 function App() {
   return (
     <div>
-      <Chat_interface />
+      <Chat_FriendRequests />
     </div>
   );
 }

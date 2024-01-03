@@ -5,8 +5,14 @@ import Input_password from "./Input_password";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 function SignInPage() {
+  const [email, setEmail] = useState("");
+
+  const [password, setPassword] = useState("");
   function Submit() {
+    console.log("Email:", email);
+    console.log("Password:", password);
     const auth = getAuth();
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -17,9 +23,6 @@ function SignInPage() {
         const errorMessage = error.message;
       });
   }
-  const [email, setEmail] = useState("");
-
-  const [password, setPassword] = useState("");
 
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
