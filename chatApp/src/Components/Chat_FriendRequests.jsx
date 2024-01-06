@@ -6,6 +6,7 @@ import {
   get,
   child,
   remove,
+  set,
 } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -50,7 +51,7 @@ function Chat_FriendRequests() {
       return;
     }
 
-    const friendRequestRef = ref(Database, `/users/${userId}/friendrequests`);
+    const friendRequestRef = ref(Database, `/users/${userId}/friendrequests`); // getting a database reference
     const friendRequestsListener = onValue(
       friendRequestRef,
       async (snapshot) => {
@@ -94,17 +95,46 @@ function Chat_FriendRequests() {
       });
     });
   }
+  function accept(senderId, senderName, requestid) {
+    const friendslistref = ref(
+      Database,
+      `/users/${Auth.currentUser.uid}/friends/${senderId}`
+    );
+    set(friendslistref, {
+      username: senderName,
+    });
+
+    remove(
+      ref(
+        Database,
+        `/users/${Auth.currentUser.uid}/friendrequests/${requestid}`
+      )
+    );
+
+    setPendingRequests((prevRequests) => {
+      prevRequests.filter((x) => {
+        x.id !== id;
+      });
+    });
+  }
 
   const listOfRequests = pendingRequests.map((x) => (
     <div key={x.id}>
       <li>{x.senderName}</li>
+      <button
+        onClick={() => {
+          accept(x.sender, x.senderName, x.id);
+        }}
+      >
+        Accept
+      </button>
 
       <button
         onClick={() => {
           reject(x.id);
         }}
       >
-        test
+        Reject
       </button>
     </div>
   ));
