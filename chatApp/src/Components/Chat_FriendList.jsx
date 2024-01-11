@@ -44,11 +44,11 @@ function FriendList() {
     console.log(friends);
   }
   return (
-    <div className="fixed text-white pl-2 ml-12 mt-12">
-      <p className="text-center">Friends List:</p>
+    <div className=" text-white ">
+      <p className="text-center ">Friends List:</p>
       {friends.map((friend) => (
-        <div key={friend.id}>
-          <p>{friend.username}</p>
+        <div key={friend.id} className="">
+          <p className="border-2 text-center">{friend.username}</p>
         </div>
       ))}
     </div>

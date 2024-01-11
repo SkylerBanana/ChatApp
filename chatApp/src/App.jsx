@@ -8,13 +8,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Chat_interface />}>
-          <Route path="FriendList" element={<Chat_FriendList />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <Chat_interface />
+    </>
   );
 }
 

@@ -7,20 +7,21 @@ import {
 
 import { signOut, getAuth } from "firebase/auth";
 import { Outlet, Link } from "react-router-dom";
+
 function Chat_nav() {
   const Auth = getAuth();
   return (
-    <div>
-      <nav className="bg-[#17191d] h-dvh fixed w-1/8 rounded flex flex-col justify-between">
+    <div className="w-fit z-10">
+      <nav className="bg-[#17191d] h-dvh rounded flex flex-col justify-between">
         <ul>
           <li className="text-white text-5xl">
             <IoChatbubbleEllipsesOutline />
           </li>
-          <Link to="/FriendList">
-            <li className="text-white text-5xl">
-              <IoPeople />
-            </li>
-          </Link>
+
+          <li className="text-white text-5xl">
+            <IoPeople />
+          </li>
+
           <li className="text-white text-5xl">
             <IoSettingsSharp />
           </li>
@@ -40,7 +41,6 @@ function Chat_nav() {
           <IoLogOutOutline />
         </div>
       </nav>
-      <Outlet />
     </div>
   );
 }

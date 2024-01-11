@@ -63,11 +63,11 @@ function Chat_Addfriend() {
   }
 
   return (
-    <div className="flex items-center w-1/4 absolute ml-12">
+    <div className="flex items-start w-fit  ml-8 mr-8 mt-4">
       <label for="simple-search" className="sr-only">
         Search
       </label>
-      <div className="relative w-1/2">
+      <div className="relative w-fit">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <svg
             className="w-4 h-4 text-gray-500 dark:text-gray-400"
