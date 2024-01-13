@@ -12,7 +12,6 @@ function Chat_interface() {
       <Chat_nav />
 
       <Chat_FriendContainer />
-      <Chat_MainRoom />
     </div>
   );
 }

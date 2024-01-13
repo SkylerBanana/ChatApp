@@ -1,28 +1,17 @@
-import "./Component Styles/SignInPageStyles.css";
-import Background from "./Background";
-import Input_email from "./Input_email";
-import Input_password from "./Input_password";
+import Background from "../Components/Background";
+import Input_email from "../Components/Input_email";
+import Input_password from "../Components/Input_password";
+
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
+
+import { useNavigate, Link } from "react-router-dom";
 function SignInPage() {
+  const auth = getAuth();
+  const Navigate = useNavigate();
+
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
-  function Submit() {
-    console.log("Email:", email);
-    console.log("Password:", password);
-    const auth = getAuth();
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-  }
 
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
@@ -32,6 +21,16 @@ function SignInPage() {
     setPassword(event.target.value);
   };
 
+  const handleSignIn = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      Navigate("/");
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error("Login error:", errorCode, errorMessage);
+    }
+  };
   return (
     <div>
       <Background />
@@ -61,7 +60,7 @@ function SignInPage() {
             </a>
           </div>
           <button
-            onClick={Submit}
+            onClick={handleSignIn}
             class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Login to your account
@@ -72,7 +71,7 @@ function SignInPage() {
               href="#"
               class="text-blue-700 hover:underline dark:text-blue-500"
             >
-              Create account
+              <Link to="/register">Create account</Link>
             </a>
           </div>
         </form>

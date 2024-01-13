@@ -1,6 +1,6 @@
-import Input_email from "./Input_email";
-import Input_password from "./Input_password";
-import Background from "./Background";
+import Input_email from "../Components/Input_email";
+import Input_password from "../Components/Input_password";
+import Background from "../Components/Background";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -8,23 +8,9 @@ import {
 } from "firebase/auth";
 import { getDatabase, ref, push, set } from "firebase/database";
 
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { useState, useEffect } from "react";
-import Input_userName from "./Input_userName";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAgJXs3Gd-Bqr1Q88xpXlFqDnYznZFp-ro",
-  authDomain: "chat-app-8b834.firebaseapp.com",
-  projectId: "chat-app-8b834",
-  storageBucket: "chat-app-8b834.appspot.com",
-  messagingSenderId: "519487462956",
-  appId: "1:519487462956:web:6593f3647a8ad81581bb89",
-  measurementId: "G-4Q4CYL4JPM",
-};
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+import Input_userName from "../Components/Input_userName";
+import { Link } from "react-router-dom";
 
 //Initialize Database
 
@@ -109,7 +95,7 @@ function RegistrationPage() {
               href="#"
               className="text-blue-700 hover:underline dark:text-blue-500"
             >
-              Already have an account?
+              <Link to="/login">Already have an account?</Link>
             </a>
           </div>
         </div>
