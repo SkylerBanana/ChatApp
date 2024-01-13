@@ -21,7 +21,8 @@ function SignInPage() {
     setPassword(event.target.value);
   };
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (event) => {
+    event.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
       Navigate("/");

@@ -45,7 +45,6 @@ function FriendList() {
   }
   return (
     <div className=" text-white ">
-      <p className="text-center ">Friends List:</p>
       {friends.map((friend) => (
         <div key={friend.id} className="">
           <p className="border-2 text-center">{friend.username}</p>
