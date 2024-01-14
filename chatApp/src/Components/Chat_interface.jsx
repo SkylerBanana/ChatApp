@@ -1,17 +1,20 @@
-import Chat_input from "./Chat_input";
 import Chat_nav from "./Chat_Nav";
-import Chat_background from "./Chat_background";
-import Chat_Addfriend from "./Chat_Addfriend";
+
 import Chat_MainRoom from "./Chat_GlobalRoom";
 
-import Chat_FriendList from "./Chat_FriendList";
 import Friend from "./Chat_Friend";
-
+import { useState } from "react";
 function Chat_interface() {
+  const [toggle, setToggle] = useState(false);
+  function FriendToggle() {
+    setToggle(!toggle);
+  }
+
   return (
-    <div className="bg-[#2e3034] bg-cover h-dvh flex ">
-      <Chat_nav />
-      <Friend />
+    <div className="flex  bg-[#2e3034] bg-cover">
+      <Chat_nav toggleFriend={FriendToggle} />
+      {toggle && <Friend />}
+      <Chat_MainRoom />
     </div>
   );
 }

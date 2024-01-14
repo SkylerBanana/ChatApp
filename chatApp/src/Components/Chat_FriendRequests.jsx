@@ -9,6 +9,8 @@ import {
   set,
 } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { FaX } from "react-icons/fa6";
+import { FaCheck } from "react-icons/fa6";
 
 function Chat_FriendRequests() {
   const [pendingRequests, setPendingRequests] = useState([]);
@@ -119,23 +121,24 @@ function Chat_FriendRequests() {
   }
 
   const listOfRequests = pendingRequests.map((x) => (
-    <div key={x.id}>
-      <li>{x.senderName}</li>
-      <button
+    <div
+      key={x.id}
+      className="text-white flex align-center justify-center mt-5"
+    >
+      <li className="mr-2">{x.senderName}</li>
+      <FaCheck
+        className="mr-1 mt-1.5 text-[#16a34a]"
         onClick={() => {
           accept(x.sender, x.senderName, x.id);
         }}
-      >
-        Accept
-      </button>
+      />
 
-      <button
+      <FaX
+        className="mt-1.5 ml-1 text-[#dc2626]"
         onClick={() => {
           reject(x.id);
         }}
-      >
-        Reject
-      </button>
+      />
     </div>
   ));
 

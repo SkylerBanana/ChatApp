@@ -69,7 +69,7 @@ export default function Chat_GlobalRoom() {
   };
 
   return (
-    <div className=" w-3/4 h-dvh     bg-[#1c212c] text-white z-10">
+    <div className=" h-dvh w-dvw bg-[#1c212c] text-white z-10">
       {chat.map((chat) => (
         <div className="flex items-start" key={chat.id}>
           <img

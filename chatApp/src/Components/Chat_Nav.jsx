@@ -8,7 +8,7 @@ import {
 import { signOut, getAuth } from "firebase/auth";
 import { Outlet, Link } from "react-router-dom";
 
-function Chat_nav() {
+function Chat_nav(props) {
   const Auth = getAuth();
   return (
     <div className="w-fit z-10">
@@ -19,7 +19,7 @@ function Chat_nav() {
           </li>
 
           <li className="text-white text-5xl">
-            <IoPeople />
+            <IoPeople onClick={props.toggleFriend} />
           </li>
 
           <li className="text-white text-5xl">

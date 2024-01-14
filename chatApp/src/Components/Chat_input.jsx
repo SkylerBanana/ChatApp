@@ -2,7 +2,7 @@ import "./Component Styles/Chat_inputStyles.css";
 
 function Chat_input(props) {
   return (
-    <footer className="fixed bottom-0 right-25 pl-5 pr-5 z-10 w-3/4">
+    <footer className="fixed bottom-0 right-25 pl-5 pr-5 z-10 w-11/12">
       <div className="mb-4 z-10">
         <input
           type="text"
