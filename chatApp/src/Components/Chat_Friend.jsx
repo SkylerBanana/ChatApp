@@ -9,7 +9,7 @@ import { useState } from "react";
 export default function Chat_Friend() {
   const [renderState, setrenderState] = useState(false);
   return (
-    <div className="bg-[#25292f]">
+    <div className="bg-[#25292f] animate-fade-right animate-once animate-duration-500 animate-ease-in-out">
       <Chat_Addfriend />
       <div>
         <div className="flex  justify-center mt-3 mb-3">
