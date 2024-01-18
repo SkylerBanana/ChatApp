@@ -5,10 +5,12 @@ import {
   IoLogOutOutline,
 } from "react-icons/io5";
 
+import { getDatabase, ref, update } from "firebase/database";
+
 import { signOut, getAuth } from "firebase/auth";
-import { Outlet, Link } from "react-router-dom";
 
 function Chat_nav(props) {
+  const Database = getDatabase();
   const Auth = getAuth();
   return (
     <div className="w-fit z-10">
@@ -28,6 +30,12 @@ function Chat_nav(props) {
         </ul>
         <div
           onClick={() => {
+            const currentUserRef = ref(
+              Database,
+              `/users/${Auth.currentUser.uid}`
+            );
+
+            update(currentUserRef, { userStatus: "offline" });
             signOut(Auth)
               .then(() => {
                 console.log("Sign Out Successful ");

@@ -1,12 +1,13 @@
 import Background from "../Components/Background";
 import Input_email from "../Components/Input_email";
 import Input_password from "../Components/Input_password";
-
+import { getDatabase, ref, update } from "firebase/database";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 
 import { useNavigate, Link } from "react-router-dom";
 function SignInPage() {
+  const Database = getDatabase();
   const auth = getAuth();
   const Navigate = useNavigate();
 
@@ -25,6 +26,7 @@ function SignInPage() {
     event.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      setStatus();
       Navigate("/");
     } catch (error) {
       const errorCode = error.code;
@@ -32,6 +34,13 @@ function SignInPage() {
       console.error("Login error:", errorCode, errorMessage);
     }
   };
+
+  function setStatus() {
+    const currentUserRef = ref(Database, `/users/${auth.currentUser.uid}`);
+
+    update(currentUserRef, { userStatus: "online" });
+  }
+
   return (
     <div>
       <Background />

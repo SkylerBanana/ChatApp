@@ -2,6 +2,8 @@ import Chat_nav from "./Chat_Nav";
 
 import Chat_MainRoom from "./Chat_GlobalRoom";
 
+import Chat_Users from "./Chat_Users";
+
 import Friend from "./Chat_Friend";
 import { useState } from "react";
 function Chat_interface() {
@@ -15,6 +17,7 @@ function Chat_interface() {
       <Chat_nav toggleFriend={FriendToggle} />
       {toggle && <Friend />}
       <Chat_MainRoom />
+      <Chat_Users />
     </div>
   );
 }
