@@ -10,7 +10,7 @@ import { getDatabase, ref, push, set } from "firebase/database";
 
 import { useState, useEffect } from "react";
 import Input_userName from "../Components/Input_userName";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //Initialize Database
 
@@ -34,6 +34,7 @@ function RegistrationPage() {
   };
 
   function Submit() {
+    const Navigate = useNavigate();
     const auth = getAuth();
     const Database = getDatabase();
     createUserWithEmailAndPassword(auth, email, password)
@@ -44,6 +45,8 @@ function RegistrationPage() {
           set(Databaseref, {
             username: inputusername,
           });
+          setStatus();
+          Navigate("login");
         });
       })
       .catch(console.error)
