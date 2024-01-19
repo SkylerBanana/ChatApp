@@ -1,17 +1,8 @@
-import {
-  getDatabase,
-  ref,
-  get,
-  runTransaction,
-  push,
-  set,
-  onValue,
-} from "firebase/database";
+import { getDatabase, ref, onValue } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
 
 export default function Chat_Users() {
-  const [chatUsers, setChatUsers] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [offlineUsers, setOfflineUsers] = useState([]);
 
@@ -42,7 +33,6 @@ export default function Chat_Users() {
         );
 
         newUsers.then((userInfo) => {
-          setChatUsers(userInfo);
           const online = userInfo.filter((user) => user.status === "online");
           const offline = userInfo.filter((user) => user.status === "offline");
 
@@ -59,7 +49,7 @@ export default function Chat_Users() {
 
   return (
     <>
-      <div className="flex-col text-center text-white w-1/6">
+      <div className="flex-col text-center text-white w-1/12">
         <div>
           <u>Online</u>
           {onlineUsers.map((onlineUser) => (
