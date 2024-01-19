@@ -15,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 //Initialize Database
 
 function RegistrationPage() {
+  const Navigate = useNavigate();
   const [email, setEmail] = useState("");
 
   const [password, setPassword] = useState("");
@@ -33,8 +34,9 @@ function RegistrationPage() {
     setInputusername(event.target.value);
   };
 
-  function Submit() {
-    const Navigate = useNavigate();
+  function Submit(event) {
+    event.preventDefault();
+
     const auth = getAuth();
     const Database = getDatabase();
     createUserWithEmailAndPassword(auth, email, password)
@@ -45,8 +47,7 @@ function RegistrationPage() {
           set(Databaseref, {
             username: inputusername,
           });
-          setStatus();
-          Navigate("login");
+          Navigate("/login");
         });
       })
       .catch(console.error)

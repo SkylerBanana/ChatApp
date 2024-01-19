@@ -69,25 +69,26 @@ export default function Chat_GlobalRoom() {
   };
 
   return (
-    <div className=" h-dvh w-dvw bg-[#1c212c] text-white z-10">
+    <div className=" h-dvh w-dvw bg-[#1c212c] text-white z-10 overflow-scroll ">
       {chat.map((chat) => (
         <div className="flex items-start" key={chat.id}>
           <img
             className="w-10 h-10 mr-3"
             src="https://cdn.discordapp.com/attachments/1092285231689646112/1194653934585917560/Default_pfp.svg.png?ex=65b1232d&is=659eae2d&hm=797ab873a71590a7577ac85cd4d7f718528b18102c9268f8ec7a5f43702e5186&"
           ></img>
-
           <div className="mb-2">
             <span className="block">{chat.senderName}</span>
             <span className="">{chat.message}</span>
           </div>
         </div>
       ))}
-      <Chat_input
-        onChange={(e) => setMessage(e.target.value)}
-        onKeyPress={handleKeyPress}
-        value={message}
-      />
+      <div className="mt-20">
+        <Chat_input
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyPress={handleKeyPress}
+          value={message}
+        />
+      </div>
     </div>
   );
 }
