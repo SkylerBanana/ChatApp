@@ -9,10 +9,11 @@ import {
   onValue,
 } from "firebase/database";
 import { getAuth } from "firebase/auth";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 export default function Chat_GlobalRoom() {
   const [chat, setChat] = useState([]);
   const [message, setMessage] = useState("");
+  const messagesContainerRef = useRef(null);
 
   const Database = getDatabase();
   const auth = getAuth();
@@ -51,6 +52,15 @@ export default function Chat_GlobalRoom() {
     };
   }, [Database]);
 
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      const lastMessage = messagesContainerRef.current.lastChild;
+      if (lastMessage) {
+        lastMessage.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [chat]);
+
   function sendMessage() {
     const globalChatRef = ref(Database, `/users/globalChat`); // getting a database reference
     const newMessage = push(globalChatRef);
@@ -69,9 +79,12 @@ export default function Chat_GlobalRoom() {
   };
 
   return (
-    <div className=" h-dvh w-dvw bg-[#1c212c] text-white z-10 overflow-scroll ">
+    <div
+      ref={messagesContainerRef}
+      className=" h-dvh w-dvw bg-[#1c212c] text-white z-10 overflow-scroll "
+    >
       {chat.map((chat) => (
-        <div className="flex items-start" key={chat.id}>
+        <div className="flex items-start ml-4" key={chat.id}>
           <img
             className="w-10 h-10 mr-3"
             src="https://cdn.discordapp.com/attachments/1092285231689646112/1194653934585917560/Default_pfp.svg.png?ex=65b1232d&is=659eae2d&hm=797ab873a71590a7577ac85cd4d7f718528b18102c9268f8ec7a5f43702e5186&"
@@ -82,7 +95,7 @@ export default function Chat_GlobalRoom() {
           </div>
         </div>
       ))}
-      <div className="mt-20">
+      <div className="lg:mt-20">
         <Chat_input
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={handleKeyPress}

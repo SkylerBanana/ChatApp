@@ -13,7 +13,7 @@ function Chat_nav(props) {
   const Database = getDatabase();
   const Auth = getAuth();
   return (
-    <div className="w-fit z-10">
+    <div className="w-fit z-20">
       <nav className="bg-[#17191d] h-dvh rounded flex flex-col justify-between">
         <ul>
           <li className="text-white text-5xl">
