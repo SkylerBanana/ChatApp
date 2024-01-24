@@ -9,9 +9,15 @@ import { getDatabase, ref, update } from "firebase/database";
 
 import { signOut, getAuth } from "firebase/auth";
 
+import { useNavigate } from "react-router-dom";
+
 function Chat_nav(props) {
+  const Navigate = useNavigate();
+
   const Database = getDatabase();
+
   const Auth = getAuth();
+
   return (
     <div className="w-fit z-20">
       <nav className="bg-[#17191d] h-dvh rounded flex flex-col justify-between">
@@ -25,7 +31,11 @@ function Chat_nav(props) {
           </li>
 
           <li className="text-white text-5xl">
-            <IoSettingsSharp />
+            <IoSettingsSharp
+              onClick={() => {
+                Navigate("/SettingsPage");
+              }}
+            />
           </li>
         </ul>
         <div

@@ -1,17 +1,13 @@
-import {
-  getDatabase,
-  ref,
-  get,
-  runTransaction,
-  push,
-  set,
-} from "firebase/database";
+import { getDatabase, ref, get, push, set } from "firebase/database";
+
 import { getAuth } from "firebase/auth";
-import { useState, useEffect } from "react";
+
+import { useState } from "react";
 
 function Chat_Addfriend() {
   function friendAdd(auth, friendid) {
     const Database = getDatabase();
+
     const currentUserUid = auth.currentUser.uid;
 
     const updateFriendRequest = (senderID, receiverID) => {
@@ -40,6 +36,7 @@ function Chat_Addfriend() {
 
   function Check() {
     const Database = ref(getDatabase());
+
     const auth = getAuth();
 
     get(Database)

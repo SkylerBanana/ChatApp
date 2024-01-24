@@ -1,10 +1,13 @@
 import SignInPage from "./Pages/SignInPage";
+
 import RegistrationPage from "./Pages/RegistrationPage";
-import Background from "./Components/Background";
+
 import Chat_interface from "./Components/Chat_interface";
-import Chat_FriendList from "./Components/Chat_FriendList";
-import Chat_FriendRequests from "./Components/Chat_FriendRequests";
+
 import Chat_UsersMobilePage from "./Pages/Chat_UsersMobilePage";
+
+import SettingsPage from "./Pages/SettingsPage";
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -59,6 +62,7 @@ function App() {
             <Route path="login" element={<SignInPage />} />
             <Route path="register" element={<RegistrationPage />} />
             <Route path="usersmobile" element={<Chat_UsersMobilePage />} />
+            <Route path="SettingsPage" element={<SettingsPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

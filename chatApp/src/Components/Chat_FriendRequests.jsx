@@ -84,7 +84,6 @@ function Chat_FriendRequests() {
   }, [Database, userId]);
 
   function reject(requestid) {
-    //if u click reject button it should remove the freind request from the database
     remove(
       ref(
         Database,
