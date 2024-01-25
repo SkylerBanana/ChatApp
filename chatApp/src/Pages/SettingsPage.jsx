@@ -1,11 +1,38 @@
 import { getAuth } from "firebase/auth";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { FaPencil } from "react-icons/fa6";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function SettingsPage() {
   const [shown, setShown] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
 
   const auth = getAuth();
+  const storage = getStorage();
+
+  useEffect(() => {
+    const fetchDefaultImage = async () => {
+      try {
+        const defaultImageRef = ref(storage, "default/default_image.png");
+        const defaultImageUrl = await getDownloadURL(defaultImageRef);
+        setImageUrl(defaultImageUrl);
+      } catch (error) {
+        console.error("Error fetching default image:", error);
+      }
+    };
+
+    fetchDefaultImage();
+  }, [storage]);
+
+  const uploadImage = async (file) => {
+    if (file) {
+      const storageRef = ref(storage, `images/${auth.currentUser.uid}`);
+      await uploadBytes(storageRef, file);
+      const imageUrl = await getDownloadURL(storageRef);
+      setImageUrl(imageUrl);
+    }
+  };
 
   return (
     <div className="bg-[#2e3034] min-h-screen">
@@ -22,8 +49,20 @@ export default function SettingsPage() {
           onMouseLeave={() => {
             setShown(false);
           }}
-          className={`w-20 h-20 mr-2 ${shown ? "opacity-50" : "a"}`}
-          src="https://cdn.discordapp.com/attachments/1092285231689646112/1194653934585917560/Default_pfp.svg.png?ex=65b1232d&is=659eae2d&hm=797ab873a71590a7577ac85cd4d7f718528b18102c9268f8ec7a5f43702e5186&"
+          onClick={() => document.getElementById("fileInput").click()}
+          className={`w-20 h-20  ${shown ? "opacity-50" : "a"}`}
+          src={selectedImage ? URL.createObjectURL(selectedImage) : imageUrl}
+        />
+        <input
+          id="fileInput"
+          type="file"
+          accept="image/*"
+          style={{ display: "none" }}
+          onChange={(event) => {
+            const selectedFile = event.target.files[0];
+            setSelectedImage(selectedFile);
+            uploadImage(selectedFile);
+          }}
         />
       </div>
       <h1 className="text-center text-white text-4xl">
