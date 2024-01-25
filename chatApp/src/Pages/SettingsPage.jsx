@@ -2,35 +2,19 @@ import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { FaPencil } from "react-icons/fa6";
 import { useState, useEffect } from "react";
-
+import useProfilePicture from "../Hooks/useProfilePicture";
 export default function SettingsPage() {
   const [shown, setShown] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
 
   const auth = getAuth();
   const storage = getStorage();
-
-  useEffect(() => {
-    const fetchDefaultImage = async () => {
-      try {
-        const defaultImageRef = ref(storage, "default/default_image.png");
-        const defaultImageUrl = await getDownloadURL(defaultImageRef);
-        setImageUrl(defaultImageUrl);
-      } catch (error) {
-        console.error("Error fetching default image:", error);
-      }
-    };
-
-    fetchDefaultImage();
-  }, [storage]);
+  const profilePicture = useProfilePicture();
 
   const uploadImage = async (file) => {
     if (file) {
       const storageRef = ref(storage, `images/${auth.currentUser.uid}`);
       await uploadBytes(storageRef, file);
-      const imageUrl = await getDownloadURL(storageRef);
-      setImageUrl(imageUrl);
     }
   };
 
@@ -50,8 +34,10 @@ export default function SettingsPage() {
             setShown(false);
           }}
           onClick={() => document.getElementById("fileInput").click()}
-          className={`w-20 h-20  ${shown ? "opacity-50" : "a"}`}
-          src={selectedImage ? URL.createObjectURL(selectedImage) : imageUrl}
+          className={`w-20 h-20 rounded-full  ${shown ? "opacity-50" : "a"}`}
+          src={
+            selectedImage ? URL.createObjectURL(selectedImage) : profilePicture
+          }
         />
         <input
           id="fileInput"
