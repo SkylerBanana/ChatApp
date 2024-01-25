@@ -2,18 +2,16 @@ import { useState, useEffect } from "react";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
-const useProfilePicture = () => {
+const useProfilePicture = (onlineUser) => {
   const [profilePicture, setProfilePicture] = useState(null);
   const auth = getAuth();
   const storage = getStorage();
+  console.log(onlineUser);
 
   useEffect(() => {
     const fetchProfilePicture = async () => {
       try {
-        const profilePictureRef = ref(
-          storage,
-          `images/${auth.currentUser.uid}`
-        );
+        const profilePictureRef = ref(storage, `images/${onlineUser}`);
         const profilePictureUrl = await getDownloadURL(profilePictureRef);
         setProfilePicture(profilePictureUrl);
       } catch (error) {
@@ -23,10 +21,10 @@ const useProfilePicture = () => {
       }
     };
 
-    if (auth.currentUser) {
+    if (onlineUser && storage) {
       fetchProfilePicture();
     }
-  }, [auth.currentUser, storage]);
+  }, [onlineUser, storage]);
 
   return profilePicture;
 };

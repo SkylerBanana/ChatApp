@@ -9,7 +9,8 @@ export default function SettingsPage() {
 
   const auth = getAuth();
   const storage = getStorage();
-  const profilePicture = useProfilePicture();
+  const onlineUser = auth.currentUser.uid;
+  const profilePicture = useProfilePicture(onlineUser);
 
   const uploadImage = async (file) => {
     if (file) {
