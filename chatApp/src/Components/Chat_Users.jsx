@@ -2,6 +2,7 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
 import useProfilePicture from "../Hooks/useProfilePicture";
+import UserAvatar from "./UserAvatar";
 
 export default function Chat_Users() {
   const [onlineUsers, setOnlineUsers] = useState([]);
@@ -56,10 +57,7 @@ export default function Chat_Users() {
           {onlineUsers.map((onlineUser) => (
             <div className="flex items-center mb-2" key={onlineUser.id}>
               <div className="relative">
-                <img
-                  className="w-10 h-10 mr-2 rounded-full"
-                  src={useProfilePicture(onlineUser)}
-                />
+                <UserAvatar id={onlineUser.id} />
                 <div className="border-2 border-solid border-black absolute bg-green-600 w-3 h-3 rounded-full bottom-1 right-0 left-6 "></div>
               </div>
               <p>{onlineUser.username}</p>
