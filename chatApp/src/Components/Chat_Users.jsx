@@ -1,7 +1,6 @@
 import { getDatabase, ref, onValue } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
-import useProfilePicture from "../Hooks/useProfilePicture";
 import UserAvatar from "./UserAvatar";
 
 export default function Chat_Users() {

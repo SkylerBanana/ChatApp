@@ -1,15 +1,9 @@
 import Chat_input from "./Chat_input";
-import {
-  getDatabase,
-  ref,
-  get,
-  runTransaction,
-  push,
-  set,
-  onValue,
-} from "firebase/database";
+import { getDatabase, ref, push, set, onValue } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import { useState, useEffect, useRef } from "react";
+import UserAvatar from "./UserAvatar";
+import useSendMessage from "../Hooks/useSendMessage";
 
 export default function Chat_GlobalRoom() {
   const [chat, setChat] = useState([]);
@@ -34,12 +28,14 @@ export default function Chat_GlobalRoom() {
         const newmessages = await Promise.all(
           requestKeys.map(async (property) => {
             const senderName = await messages[property].sender;
+            console.log(messages);
 
             return {
               id: property,
               sender: messages[property].sender,
               senderName: senderName,
               message: messages[property].message,
+              uid: messages[property].uid,
             };
           })
         );
@@ -62,19 +58,11 @@ export default function Chat_GlobalRoom() {
     }
   }, [chat]);
 
-  function sendMessage() {
-    const globalChatRef = ref(Database, `/users/globalChat`); // getting a database reference
-    const newMessage = push(globalChatRef);
-    set(newMessage, {
-      sender: auth.currentUser.displayName,
-      message: message,
-    });
-  }
-
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       console.log("Enter key pressed. Input value:", message);
-      sendMessage();
+      const location = "globalChat";
+      useSendMessage(location, message);
       setMessage("");
     }
   };
@@ -86,10 +74,7 @@ export default function Chat_GlobalRoom() {
     >
       {chat.map((chat) => (
         <div className="flex items-start ml-4" key={chat.id}>
-          <img
-            className="w-10 h-10 mr-3 rounded-full"
-            src="https://cdn.discordapp.com/attachments/1092285231689646112/1194653934585917560/Default_pfp.svg.png?ex=65b1232d&is=659eae2d&hm=797ab873a71590a7577ac85cd4d7f718528b18102c9268f8ec7a5f43702e5186&"
-          ></img>
+          <UserAvatar id={chat.uid} />
           <div className="mb-2">
             <span className="block">{chat.senderName}</span>
             <span className="">{chat.message}</span>
