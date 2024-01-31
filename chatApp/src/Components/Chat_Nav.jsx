@@ -23,7 +23,11 @@ function Chat_nav(props) {
       <nav className="bg-[#17191d] h-dvh rounded flex flex-col justify-between">
         <ul>
           <li className="text-white text-5xl">
-            <IoChatbubbleEllipsesOutline />
+            <IoChatbubbleEllipsesOutline
+              onClick={() => {
+                props.callBack(false);
+              }}
+            />
           </li>
 
           <li className="text-white text-5xl">

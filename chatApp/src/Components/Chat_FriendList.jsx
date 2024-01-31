@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { getDatabase, ref, get, onValue } from "firebase/database";
+import { getDatabase, ref, onValue } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
-function FriendList() {
+function FriendList(props) {
   const [friends, setFriends] = useState([]);
   const Database = getDatabase();
   const Auth = getAuth();
@@ -40,13 +40,21 @@ function FriendList() {
     };
   }, []);
 
-  function check() {
-    console.log(friends);
+  function handleClick(friendID) {
+    props.grabID(friendID);
+    props.callBack1(true);
   }
+
   return (
     <div className=" text-white ">
       {friends.map((friend) => (
-        <div key={friend.id} className="">
+        <div
+          key={friend.id}
+          onClick={() => {
+            handleClick(friend.id);
+          }}
+          className=""
+        >
           <p className="border-2 text-center">{friend.username}</p>
         </div>
       ))}

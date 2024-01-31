@@ -9,16 +9,25 @@ import Chat_Users from "./Chat_Users";
 import Friend from "./Chat_Friend";
 
 import Chat_UsersMobile from "./Chat_UsersMobile";
+import Chat_PrivateRoom from "./Chat_PrivateRoom";
 
 function Chat_interface() {
   const [toggle, setToggle] = useState(false);
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
+  const [friendID, setFriendID] = useState(null);
+
+  const [chatSelection, setChatSelection] = useState(false);
+
   const mobileBreakpoint = 768;
 
   function FriendToggle() {
     setToggle(!toggle);
+  }
+
+  function selectChat(value) {
+    setChatSelection(value);
   }
 
   useEffect(() => {
@@ -33,11 +42,15 @@ function Chat_interface() {
     };
   }, [mobileBreakpoint]);
 
+  function handleIdChange(newID) {
+    setFriendID(newID);
+  }
+
   return (
     <div className="flex  bg-[#2e3034] bg-cover">
-      <Chat_nav toggleFriend={FriendToggle} />
-      {toggle && <Friend />}
-      <Chat_MainRoom />
+      <Chat_nav toggleFriend={FriendToggle} callBack={selectChat} />
+      {toggle && <Friend grabID={handleIdChange} callBack1={selectChat} />}
+      {!chatSelection ? <Chat_MainRoom /> : <Chat_PrivateRoom id={friendID} />}
       {!isMobile && <Chat_Users />}
       {isMobile && <Chat_UsersMobile />}
     </div>

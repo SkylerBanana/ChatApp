@@ -6,7 +6,7 @@ import Chat_FriendList from "./Chat_FriendList";
 
 import { useState } from "react";
 
-export default function Chat_Friend() {
+export default function Chat_Friend(props) {
   const [renderState, setrenderState] = useState(false);
   return (
     <div className="bg-[#25292f] animate-fade-right animate-once animate-duration-500 animate-ease-in-out">
@@ -28,7 +28,11 @@ export default function Chat_Friend() {
             Pending
           </button>
         </div>
-        {renderState ? <Chat_FriendRequests /> : <Chat_FriendList />}
+        {renderState ? (
+          <Chat_FriendRequests />
+        ) : (
+          <Chat_FriendList grabID={props.grabID} callBack1={props.callBack1} />
+        )}
       </div>
     </div>
   );
