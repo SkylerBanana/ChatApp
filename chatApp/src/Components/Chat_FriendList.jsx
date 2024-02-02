@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { getAuth } from "firebase/auth";
+import UserAvatar from "./UserAvatar";
 
 function FriendList(props) {
   const [friends, setFriends] = useState([]);
@@ -53,9 +54,10 @@ function FriendList(props) {
           onClick={() => {
             handleClick(friend.id);
           }}
-          className=""
+          className="flex items-center  mb-2 ml-2 hover:bg-sky-700 mr-2 rounded"
         >
-          <p className="border-2 text-center">{friend.username}</p>
+          <UserAvatar id={friend.id} />
+          <p className="text-center ml-2">{friend.username}</p>
         </div>
       ))}
     </div>

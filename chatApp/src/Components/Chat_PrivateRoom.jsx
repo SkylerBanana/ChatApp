@@ -36,18 +36,18 @@ export default function Chat_PrivateRoom(props) {
   return (
     <div
       ref={messagesContainerRef}
-      className=" h-dvh w-dvw bg-[#1c212c] text-white z-10 overflow-scroll "
+      className=" h-dvh w-dvw bg-[#1c212c] text-white z-10 overflow-scroll flex flex-col justify-end "
     >
       {hook.messages.map((chat) => (
-        <div className="flex items-start ml-4" key={chat.id}>
+        <div className="flex items-center mb-2 ml-5" key={chat.id}>
           <UserAvatar id={chat.uid} />
-          <div className="mb-2">
+          <div className="">
             <span className="block">{chat.senderName}</span>
             <span className="">{chat.message}</span>
           </div>
         </div>
       ))}
-      <div className="lg:mt-20">
+      <div className="lg:mt-15">
         <Chat_input
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={handleKeyPress}
