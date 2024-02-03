@@ -97,12 +97,19 @@ function Chat_FriendRequests() {
     });
   }
   function accept(senderId, senderName, requestid) {
-    const friendslistref = ref(
+    let friendslistref = ref(
       Database,
       `/users/${Auth.currentUser.uid}/friends/${senderId}`
     );
     set(friendslistref, {
       username: senderName,
+    });
+    friendslistref = ref(
+      Database,
+      `/users/${senderId}/friends/${Auth.currentUser.uid}`
+    );
+    set(friendslistref, {
+      username: Auth.currentUser.displayName,
     });
 
     remove(

@@ -18,7 +18,7 @@ function useReadMessage(location) {
     if (location === "globalChat") {
       chatRef = ref(Database, `/users/globalChat`);
     } else {
-      chatRef = ref(Database, `/users/${location}/messages/${currentUserUid}`);
+      chatRef = ref(Database, `/users/${currentUserUid}/messages/${location}`);
     }
 
     const chatRefListener = onValue(chatRef, (snapshot) => {

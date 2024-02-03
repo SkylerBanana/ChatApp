@@ -8,7 +8,7 @@ import { getAuth } from "firebase/auth";
 export default function Chat_PrivateRoom(props) {
   const Auth = getAuth();
 
-  let location = Auth.currentUser.uid;
+  let location = props.id;
 
   const hook = useReadMessage(location);
 
