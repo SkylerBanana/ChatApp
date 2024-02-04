@@ -45,7 +45,6 @@ function FriendList(props) {
     props.grabID(friendID);
     props.callBack1(true);
   }
-  console.log(friends);
 
   return (
     <div className=" text-white ">

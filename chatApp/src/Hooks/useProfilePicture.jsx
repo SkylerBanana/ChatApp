@@ -6,7 +6,6 @@ const useProfilePicture = (onlineUser) => {
   const [profilePicture, setProfilePicture] = useState(null);
   const auth = getAuth();
   const storage = getStorage();
-  console.log(onlineUser);
 
   useEffect(() => {
     const fetchProfilePicture = async () => {

@@ -42,7 +42,7 @@ export default function Chat_PrivateRoom(props) {
         <div className="flex items-center mb-2 ml-5" key={chat.id}>
           <UserAvatar id={chat.uid} />
           <div className="">
-            <span className="block">{chat.senderName}</span>
+            <span className="block">{chat.sender}</span>
             <span className="">{chat.message}</span>
           </div>
         </div>

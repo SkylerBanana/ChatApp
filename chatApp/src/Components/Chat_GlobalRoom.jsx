@@ -37,10 +37,10 @@ export default function Chat_GlobalRoom() {
       className=" h-dvh w-dvw bg-[#1c212c] text-white z-10 overflow-scroll flex flex-col justify-end "
     >
       {hook.messages.map((chat) => (
-        <div className="flex items-center mb-2 ml-5" key={chat.id}>
+        <div className="flex items-center mb-5 ml-5" key={chat.id}>
           <UserAvatar id={chat.uid} />
           <div className="">
-            <span className="block">{chat.senderName}</span>
+            <span className="block">{chat.sender}</span>
             <span className="">{chat.message}</span>
           </div>
         </div>

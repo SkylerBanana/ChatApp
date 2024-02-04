@@ -39,14 +39,11 @@ export default function Chat_Users() {
 
           setOnlineUsers(online);
           setOfflineUsers(offline);
-          console.log(onlineUsers);
         });
       }
     });
   }, []);
-  useEffect(() => {
-    console.log("Online Users:", onlineUsers);
-  }, [onlineUsers]);
+  useEffect(() => {}, [onlineUsers]);
 
   return (
     <>
@@ -54,7 +51,7 @@ export default function Chat_Users() {
         <div>
           <u>Online</u>
           {onlineUsers.map((onlineUser) => (
-            <div className="flex items-center mb-2" key={onlineUser.id}>
+            <div className="flex items-center mb-4" key={onlineUser.id}>
               <div className="relative">
                 <UserAvatar id={onlineUser.id} />
                 <div className="border-2 border-solid border-black absolute bg-green-600 w-3 h-3 rounded-full bottom-1 right-0 left-6 "></div>
@@ -66,7 +63,11 @@ export default function Chat_Users() {
         <div>
           <u>Offline</u>
           {offlineUsers.map((offlineUser) => (
-            <div key={offlineUser.id}>
+            <div className="flex items-center mb-4" key={offlineUser.id}>
+              <div className="relative">
+                <UserAvatar id={offlineUser.id} />
+                <div className="border-2 border-solid border-black absolute bg-slate-400 w-3 h-3 rounded-full bottom-1 right-0 left-6 "></div>
+              </div>
               <p>{offlineUser.username}</p>
             </div>
           ))}

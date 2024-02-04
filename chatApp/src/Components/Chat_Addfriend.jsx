@@ -31,7 +31,6 @@ function Chat_Addfriend() {
 
   function changeFriend(event) {
     setFriend(event.target.value);
-    console.log(friend);
   }
 
   function Check() {
@@ -46,7 +45,6 @@ function Chat_Addfriend() {
 
           for (const [key, value] of Object.entries(data)) {
             if (value.username === friend) {
-              console.log(value.friendRequest);
               friendAdd(auth, key);
             }
           }
